@@ -47,18 +47,7 @@
       <%- page.content %>
     </div>
   </div>
-  <% } %>
-
-  <% if(page.type === "about") { %>
-  <!-- 关于页 url形式：https://yoursite/about/ -->
-    <div class="container about-index">
-      <div class="markdown-body">
-        <%- page.content %>
-      </div>
-    </div>
-  <% } %>
-
-  <% if (!page.type) { %>
+  <% } else if (!page.type) { %>
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">

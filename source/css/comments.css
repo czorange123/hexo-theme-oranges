@@ -6,6 +6,26 @@
 
 .comments-container .vwrap {
   color: var(--color-text-a);
+  /* edit */
+  padding: 2px 10px !important; 
+}
+/* edit */
+.v[data-class="v"] .vwrap .vheader .vinput {
+  padding: 0px;
+  padding-bottom: 2px;
+}
+/* edit */
+.v[data-class="v"] .vwrap .vedit {
+  padding-top: 5px !important;
+}
+/* edit */
+.v[data-class="v"] .veditor {
+  padding: 2px 0px !important;
+  min-height: 5rem !important;
+}
+/* edit */
+.v[data-class="v"] .vrow {
+  padding: 0px !important;
 }
 
 .vheader input::-webkit-input-placeholder, .vheader input {
@@ -16,12 +36,28 @@
   color: var(--color-text-a) !important;
 }
 
+/* edit */
+.vicon.vemoji-btn svg {
+  width: 80% !important;
+}
+.vicon.vpreview-btn svg {
+  width: 80% !important;
+}
+.v[data-class="v"] .vwrap .vpreview {
+  padding: 0px !important;
+}
+.vsubmit.vbtn {
+  padding: .5em .7em !important;
+}
+
 .vicon {
   fill: var(--color-text-a) !important;
 }
 
 .vbtn {
   color: var(--color-text-a) !important;
+  /* edit */
+  margin-bottom: 10px !important;
 }
 
 .vcontent p {

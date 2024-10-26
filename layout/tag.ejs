@@ -1,28 +1,30 @@
 <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
 
 <div class="container tag-details">
-  <div class="content-title">
-    <h2>
-      <span><%- page.tag %></span>
-    </h2>
-  </div>
-  <% page.posts.sort('date', -1).each(function(item) { %>
-    <div class="post-list">
-      <div class="post-item" title="<%- item.title %>">
-        <span class="time-m-d"><%- item.date.format("YYYY-MM-DD") %></span>
-        <a href="<%- url_for(item.path) %>">
-          <span><%- item.title %></span>
-        </a>
-      </div>
+  <div class="title-list">
+    <div class="content-title">
+      <h2>
+        <span><%- page.tag %></span>
+      </h2>
     </div>
-  <% }) %>
-  <nav class="post-navigation">
-    <% if(page.prev !== 0){ %>
-      <a href="<%- url_for(page.prev_link)%>"><i class="iconfont icon-angleleft"></i></a>
-    <% } %>
-    <span class="page-num"><%- page.current %> / <%- page.total -%></span>
-    <% if(page.next !== 0){ %>
-      <a href="<%- url_for(page.next_link)%>"><i class="iconfont icon-angleright"></i></a>
-    <% } %>
-  </nav>
+    <% page.posts.sort('date', -1).each(function(item) { %>
+      <div class="post-list">
+        <div class="post-item" title="<%- item.title %>">
+          <span class="time-m-d"><%- item.date.format("YYYY-MM-DD") %></span>
+          <a href="<%- url_for(item.path) %>">
+            <span><%- item.title %></span>
+          </a>
+        </div>
+      </div>
+    <% }) %>
+    <nav class="post-navigation">
+      <% if(page.prev !== 0){ %>
+        <a href="<%- url_for(page.prev_link)%>"><i class="iconfont icon-angleleft"></i></a>
+      <% } %>
+      <span class="page-num"><%- page.current %> / <%- page.total -%></span>
+      <% if(page.next !== 0){ %>
+        <a href="<%- url_for(page.next_link)%>"><i class="iconfont icon-angleright"></i></a>
+      <% } %>
+    </nav>
+  </div>
 </div>

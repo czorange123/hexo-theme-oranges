@@ -8,7 +8,9 @@ html, body {
   letter-spacing: 0.01rem;
   background-color: var(--bg-body);
   transition: color 400ms ease-in-out 0s, background-color 400ms ease-in-out 0s;
-  font-family: Consolas, "Liberation Mono", Menlo, Monaco, "Source Han Sans CN", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif
+  /* font-family: Consolas, "Liberation Mono", Menlo, Monaco, "Source Han Sans CN", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif */
+  /* font-family:  "Times New Roman", Times, serif; */
+  font-family: "Courier New", Courier, monospace;
 }
 
 body.hidden {
@@ -62,6 +64,7 @@ a {
   text-decoration: none;
   background-color: transparent;
   transition: color 0.3s;
+  border: 0;
 }
 
 a:hover {
@@ -74,7 +77,10 @@ a:hover {
   flex-direction: column;
   justify-content: space-between;
   margin-left: calc(100vw - 100%);
-  /*transition: all 0.3s ease;*/
+  /* 变形的时候的动画，之前被注释掉了 */
+  transition: all 0.3s ease;
+  /* 这个为了保证index页长了地下有一点空白 */
+  margin-bottom: 70px;
 }
 
 .header {
@@ -229,6 +235,12 @@ a:hover {
   padding-top: 10px;
 }
 
+@media (min-width: 888px) {
+  .tag-details .title-list {
+    padding: 0 40px;
+  }
+}
+
 .content {
   clear: both;
   padding: 0 20px;
@@ -242,17 +254,48 @@ a:hover {
 }
 
 .navbar {
-  margin-left: calc(100vw - 100%);
-  display: flex;
+  /* margin-left: calc(100vw - 100%); */
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  /* margin-left: 25%; */
+  /* display: flex; */
   align-items: center;
-  justify-content: center;
+  /* align-items: flex-start; */
+  /* justify-content: center; */
+  /* justify-content: flex-start; */
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navbar ul {
+  padding: 0 40px;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 888px) {
+  .navbar {
+    width: 100%;
+  }
+  .navbar ul {
+    padding: 0 20px;
+  }
 }
 
 .navbar ul li {
   position: relative;
   display: inline-block;
-  margin: 0 15px;
-  font-size: 1.65rem;
+  /* margin: 0 15px; */
+  /* margin: 0 50px 0 50px; */
+  /* margin: 0 5.5rem 0 5.5rem; */
+  /* margin: 0 3vw; */
+  /* font-size: 1.65rem; */
+  font-size: 3.5rem;
+  /* font-size: 1.5vw; */
   font-weight: bold;
   text-align: center;
 }
@@ -265,11 +308,14 @@ a:hover {
   content: "";
   position: absolute;
   bottom: 3px;
-  left: 5px;
-  height: 6px;
+  /* left: 5px; */
+  left: 0px;
+  /* height: 6px; */
+  height: 2px;
   opacity: 0.45;
-  background-color: gray;
-  width: 89%;
+  background-color: rgb(161, 161, 161);
+  /* width: 89%; */
+  width: 100%;
 }
 
 .navbar ul li.active a {
@@ -277,14 +323,14 @@ a:hover {
 }
 
 .navbar ul li.active a::after {
-  content: "";
+  /* content: "";
   position: absolute;
   bottom: 3px;
   left: 5px;
   height: 6px;
   opacity: 0.55;
   background-color: gray;
-  width: 89%;
+  width: 89%; */
 }
 
 @media (max-width: 888px) {

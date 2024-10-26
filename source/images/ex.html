@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "white"}, "id": "LIST MAKING", "label": "LIST MAKING", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "DRIVE TO STORE", "label": "DRIVE TO STORE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GO TO STORE", "label": "GO TO STORE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "SCHEDULE FOR GOING", "label": "SCHEDULE FOR GOING", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "FIND COUPONS", "label": "FIND COUPONS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHOOSE SHOP", "label": "CHOOSE SHOP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WORK ON BUDGETS", "label": "WORK ON BUDGETS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHOOSE TRANSPORTATION \u0026 WAY OF CARRYING", "label": "CHOOSE TRANSPORTATION \u0026 WAY OF CARRYING", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GRAB ITEMS", "label": "GRAB ITEMS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "SHOPPING", "label": "SHOPPING", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WALK AROUND STORE", "label": "WALK AROUND STORE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GRAB A CART", "label": "GRAB A CART", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WALK TO STORE", "label": "WALK TO STORE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHECK OUT", "label": "CHECK OUT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "PUT ITEM AWAY", "label": "PUT ITEM AWAY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "PACKAGE ITEMS ", "label": "PACKAGE ITEMS ", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "PICK UP ITEMS", "label": "PICK UP ITEMS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GO HOME", "label": "GO HOME", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "LEAVE", "label": "LEAVE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "STORE ITEMS", "label": "STORE ITEMS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHECK ITEM NEEDED", "label": "CHECK ITEM NEEDED", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "LOOK ON GROCERY APP", "label": "LOOK ON GROCERY APP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "ADD ITEMS TO CART ON THE APP", "label": "ADD ITEMS TO CART ON THE APP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WALK THROUGH AISLES", "label": "WALK THROUGH AISLES", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHECK SHOPPING LIST", "label": "CHECK SHOPPING LIST", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "ADD  AND REMOVE ITEMS FROM LIST \u0026 COMPARE \u0026 CHOOSE BEST OPTION", "label": "ADD  AND REMOVE ITEMS FROM LIST \u0026 COMPARE \u0026 CHOOSE BEST OPTION", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "QUEUE", "label": "QUEUE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "LOOK AT SALE ADS", "label": "LOOK AT SALE ADS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GETTING INTO VEHICLE", "label": "GETTING INTO VEHICLE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "LOOK FOR ITEMS", "label": "LOOK FOR ITEMS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "ARRIVE STORE", "label": "ARRIVE STORE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CHECK AVAILABILITY OF ONLINE SHOPS", "label": "CHECK AVAILABILITY OF ONLINE SHOPS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "DECIDE ONLINE OR OFFLINE", "label": "DECIDE ONLINE OR OFFLINE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "?", "label": "?", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "FIND PARKING SPOT", "label": "FIND PARKING SPOT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "FIND A CART", "label": "FIND A CART", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "GET DRESSED", "label": "GET DRESSED", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WAIT", "label": "WAIT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "WAIT TILL STARVING", "label": "WAIT TILL STARVING", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "LIST MAKING", "label": 7, "title": 7, "to": "DRIVE TO STORE", "width": 7}, {"arrows": "to", "from": "LIST MAKING", "label": 6, "title": 6, "to": "GO TO STORE", "width": 6}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "SCHEDULE FOR GOING", "width": 1}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "FIND COUPONS", "width": 1}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "CHOOSE SHOP", "width": 1}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "WORK ON BUDGETS", "width": 1}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "CHOOSE TRANSPORTATION \u0026 WAY OF CARRYING", "width": 1}, {"arrows": "to", "from": "LIST MAKING", "label": 1, "title": 1, "to": "GRAB ITEMS", "width": 1}, {"arrows": "to", "from": "DRIVE TO STORE", "label": 1, "title": 1, "to": "SHOPPING", "width": 1}, {"arrows": "to", "from": "DRIVE TO STORE", "label": 1, "title": 1, "to": "WALK AROUND STORE", "width": 1}, {"arrows": "to", "from": "DRIVE TO STORE", "label": 5, "title": 5, "to": "GRAB A CART", "width": 5}, {"arrows": "to", "from": "DRIVE TO STORE", "label": 1, "title": 1, "to": "WALK TO STORE", "width": 1}, {"arrows": "to", "from": "SHOPPING", "label": 2, "title": 2, "to": "CHECK OUT", "width": 2}, {"arrows": "to", "from": "CHECK OUT", "label": 1, "title": 1, "to": "PUT ITEM AWAY", "width": 1}, {"arrows": "to", "from": "CHECK OUT", "label": 2, "title": 2, "to": "PACKAGE ITEMS ", "width": 2}, {"arrows": "to", "from": "CHECK OUT", "label": 1, "title": 1, "to": "PICK UP ITEMS", "width": 1}, {"arrows": "to", "from": "CHECK OUT", "label": 2, "title": 2, "to": "GO HOME", "width": 2}, {"arrows": "to", "from": "CHECK OUT", "label": 1, "title": 1, "to": "LEAVE", "width": 1}, {"arrows": "to", "from": "WALK AROUND STORE", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "PACKAGE ITEMS ", "label": 1, "title": 1, "to": "LEAVE", "width": 1}, {"arrows": "to", "from": "PACKAGE ITEMS ", "label": 1, "title": 1, "to": "STORE ITEMS", "width": 1}, {"arrows": "to", "from": "CHECK ITEM NEEDED", "label": 1, "title": 1, "to": "LOOK ON GROCERY APP", "width": 1}, {"arrows": "to", "from": "CHECK ITEM NEEDED", "label": 1, "title": 1, "to": "LIST MAKING", "width": 1}, {"arrows": "to", "from": "LOOK ON GROCERY APP", "label": 1, "title": 1, "to": "ADD ITEMS TO CART ON THE APP", "width": 1}, {"arrows": "to", "from": "ADD ITEMS TO CART ON THE APP", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "GRAB A CART", "label": 3, "title": 3, "to": "WALK THROUGH AISLES", "width": 3}, {"arrows": "to", "from": "GRAB A CART", "label": 1, "title": 1, "to": "CHECK SHOPPING LIST", "width": 1}, {"arrows": "to", "from": "GRAB A CART", "label": 5, "title": 5, "to": "GRAB ITEMS", "width": 5}, {"arrows": "to", "from": "GRAB A CART", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "WALK THROUGH AISLES", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "WALK THROUGH AISLES", "label": 1, "title": 1, "to": "CHECK SHOPPING LIST", "width": 1}, {"arrows": "to", "from": "WALK THROUGH AISLES", "label": 1, "title": 1, "to": "GRAB ITEMS", "width": 1}, {"arrows": "to", "from": "GO TO STORE", "label": 5, "title": 5, "to": "GRAB ITEMS", "width": 5}, {"arrows": "to", "from": "GO TO STORE", "label": 2, "title": 2, "to": "GRAB A CART", "width": 2}, {"arrows": "to", "from": "GO TO STORE", "label": 1, "title": 1, "to": "PACKAGE ITEMS ", "width": 1}, {"arrows": "to", "from": "GO TO STORE", "label": 1, "title": 1, "to": "SHOPPING", "width": 1}, {"arrows": "to", "from": "GO TO STORE", "label": 1, "title": 1, "to": "WALK AROUND STORE", "width": 1}, {"arrows": "to", "from": "GO TO STORE", "label": 1, "title": 1, "to": "LEAVE", "width": 1}, {"arrows": "to", "from": "GRAB ITEMS", "label": 12, "title": 12, "to": "CHECK OUT", "width": 12}, {"arrows": "to", "from": "GRAB ITEMS", "label": 1, "title": 1, "to": "LEAVE", "width": 1}, {"arrows": "to", "from": "GRAB ITEMS", "label": 1, "title": 1, "to": "ADD  AND REMOVE ITEMS FROM LIST \u0026 COMPARE \u0026 CHOOSE BEST OPTION", "width": 1}, {"arrows": "to", "from": "GRAB ITEMS", "label": 1, "title": 1, "to": "QUEUE", "width": 1}, {"arrows": "to", "from": "GRAB ITEMS", "label": 1, "title": 1, "to": "GRAB ITEMS", "width": 1}, {"arrows": "to", "from": "CHECK SHOPPING LIST", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "CHECK SHOPPING LIST", "label": 2, "title": 2, "to": "GRAB ITEMS", "width": 2}, {"arrows": "to", "from": "LOOK AT SALE ADS", "label": 1, "title": 1, "to": "LIST MAKING", "width": 1}, {"arrows": "to", "from": "SCHEDULE FOR GOING", "label": 1, "title": 1, "to": "GO TO STORE", "width": 1}, {"arrows": "to", "from": "SCHEDULE FOR GOING", "label": 1, "title": 1, "to": "GETTING INTO VEHICLE", "width": 1}, {"arrows": "to", "from": "WALK TO STORE", "label": 1, "title": 1, "to": "LOOK FOR ITEMS", "width": 1}, {"arrows": "to", "from": "WALK TO STORE", "label": 1, "title": 1, "to": "GRAB ITEMS", "width": 1}, {"arrows": "to", "from": "LOOK FOR ITEMS", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "FIND COUPONS", "label": 1, "title": 1, "to": "ARRIVE STORE", "width": 1}, {"arrows": "to", "from": "ARRIVE STORE", "label": 1, "title": 1, "to": "GRAB A CART", "width": 1}, {"arrows": "to", "from": "CHOOSE SHOP", "label": 1, "title": 1, "to": "CHECK AVAILABILITY OF ONLINE SHOPS", "width": 1}, {"arrows": "to", "from": "CHECK AVAILABILITY OF ONLINE SHOPS", "label": 1, "title": 1, "to": "DECIDE ONLINE OR OFFLINE", "width": 1}, {"arrows": "to", "from": "DECIDE ONLINE OR OFFLINE", "label": 1, "title": 1, "to": "SHOPPING", "width": 1}, {"arrows": "to", "from": "WORK ON BUDGETS", "label": 1, "title": 1, "to": "GO TO STORE", "width": 1}, {"arrows": "to", "from": "?", "label": 3, "title": 3, "to": "?", "width": 3}, {"arrows": "to", "from": "FIND PARKING SPOT", "label": 1, "title": 1, "to": "FIND A CART", "width": 1}, {"arrows": "to", "from": "FIND A CART", "label": 1, "title": 1, "to": "CHECK SHOPPING LIST", "width": 1}, {"arrows": "to", "from": "CHOOSE TRANSPORTATION \u0026 WAY OF CARRYING", "label": 1, "title": 1, "to": "GRAB ITEMS", "width": 1}, {"arrows": "to", "from": "ADD  AND REMOVE ITEMS FROM LIST \u0026 COMPARE \u0026 CHOOSE BEST OPTION", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "QUEUE", "label": 1, "title": 1, "to": "CHECK OUT", "width": 1}, {"arrows": "to", "from": "GET DRESSED", "label": 1, "title": 1, "to": "SCHEDULE FOR GOING", "width": 1}, {"arrows": "to", "from": "GETTING INTO VEHICLE", "label": 1, "title": 1, "to": "GO TO STORE", "width": 1}, {"arrows": "to", "from": "WAIT", "label": 1, "title": 1, "to": "WAIT", "width": 1}, {"arrows": "to", "from": "WAIT", "label": 1, "title": 1, "to": "WAIT TILL STARVING", "width": 1}, {"arrows": "to", "from": "WAIT TILL STARVING", "label": 1, "title": 1, "to": "GO TO STORE", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
