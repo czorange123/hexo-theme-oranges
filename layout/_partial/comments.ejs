@@ -12,7 +12,16 @@
       new Waline({
         el: '#waline-comments',
         path: location.pathname,
-        serverURL: '<%- theme.comments.waline.serverURL %>'
+        serverURL: '<%- theme.comments.waline.serverURL %>',
+        emoji: false,
+        dark: 'auto',
+        requiredMeta: ['nick', 'mail'],
+        wordLimit: 150,
+        imageUploader: false,
+        search: false,
+        reaction: false,
+        pageSize: 30,
+        lang: '<%= config.language %>'
       })
     }
   </script>
