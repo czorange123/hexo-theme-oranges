@@ -109,6 +109,11 @@ a:hover {
 }
 
 @media (max-width: 888px) {
+  /* 减少大额头 */
+  .header {
+    padding-top: 0px !important;
+  }
+
   .container {
     width: 90%;
   }

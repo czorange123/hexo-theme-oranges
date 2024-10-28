@@ -8,3 +8,4 @@ public/
 *.zip
 package-lock.json
 *.backup
+_config.yml
